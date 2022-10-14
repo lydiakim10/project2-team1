@@ -1,11 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
-const user = require('./user');
-const category = require('./category');
 
-class Records extends Model {}
+class Record extends Model {}
 
-Records.init({
+Record.init({
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -17,7 +15,7 @@ Records.init({
         allowNull: false,
         references: {
             model: user,
-            key: id,
+            key: 'id',
         }
     },
     category_id: {
@@ -25,7 +23,7 @@ Records.init({
         allowNull: false,
         references: {
             model: category,
-            key: id,
+            key: 'id',
         }
     },
     cost: {
@@ -51,7 +49,7 @@ Records.init({
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'records',
+    modelName: 'record',
 });
 
-module.exports = Records;
+module.exports = Record;
