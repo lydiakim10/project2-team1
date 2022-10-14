@@ -14,7 +14,7 @@ Record.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: user,
+            model: 'user',
             key: 'id',
         }
     },
@@ -22,7 +22,7 @@ Record.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: category,
+            model: 'category',
             key: 'id',
         }
     },
