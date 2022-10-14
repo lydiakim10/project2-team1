@@ -1,6 +1,9 @@
-{{#each records as |record| }}
 <div class="row mb-4">
     <div class="col-md-5">
-        
+        <h2>
+            Budget: ($) {{budget}}
+        </h2>
+        {{#each records as |record| }}
+        <a href="/record/{{record.id}}">{{record.name}}</a>
     </div>
 </div>
