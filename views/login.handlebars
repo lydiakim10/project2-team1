@@ -1,19 +1,23 @@
 <form class="login-form">
-    {{> message}}
+    {{!-- {{> message}} --}}
+    <h2 class="form-header">Login</h2>
     <div class="form-group">
         <label for="email-login">Email:</label>
-        <input class="form-input" type="text" id="email-login" />
+        <input class="form-control" type="text" id="email-login" />
     </div>
+    <br>
     <div class="form-group">
         <label for="password-login">Password:</label>
-        <input class="form-input" type="text" id="password-login" />
+        <input class="form-control" type="text" id="password-login" />
     </div>
+    <br>
     <div class="form-group">
-        <button type="submit">Login</button>
+        <button type="submit" class="btn btn-light">Login</button>
     </div>
+    <br>
     <div class="sign-up">
-        Not a member:? <a href="/signup">Sign Up Now!</a>
+        Not a member? <a href="/signup">Sign Up</a>
     </div>
 </form>
 
-<script src="./js/login.js"></script>
+<script src="/js/login.js"></script>
