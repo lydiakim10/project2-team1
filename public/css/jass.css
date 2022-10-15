@@ -1,0 +1,101 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+
+.navbar-nav a{
+    padding-left: 50px;
+    display: flex;
+    justify-content: end;
+}
+
+.form-header {
+    text-align: center;
+    padding-bottom: 20px;;
+}
+
+.signup-form {
+    justify-content: center;
+    width: 20%;
+    padding: 20px;
+    margin-left: 40%;
+    margin-top: 5%;
+    background-color: lightgrey;
+    border-radius: 20px;
+}
+
+.login-form {
+    justify-content: center;
+    width: 20%;
+    padding: 20px;
+    margin-left: 40%;
+    margin-top: 5%;
+    background-color: lightgrey;
+    border-radius: 20px;
+}
+
+.form-group {
+    display: block;
+    font-size: 20px;
+}
+
+.btn {
+        margin-left: 32%;
+}
+
+@media screen and (max-device-width: 768px) {
+    .login-form {
+        font-size: 10px;
+        width: 40%;
+        margin-left: 30%;
+
+    }
+    .signup-form {
+        font-size: 10px;
+        width: 40%;
+        margin-left: 30%;
+
+    }
+    .btn {
+        margin-left: 30%;
+    }
+}
+
+
+@media screen and (max-device-width: 425px) {
+    .login-form {
+        font-size: 10px;
+        width: 70%;
+        margin-left: 15%;
+        padding-bottom: 5%;
+    }
+    .signup-form {
+        font-size: 10px;
+        width: 70%;
+        margin-left: 15%;
+        padding-bottom: 5%;
+    }
+    .btn {
+        margin-left: 30%;
+    }
+}
+
+@media screen and (max-device-width: 320px) {
+    .login-form {
+        font-size: 10px;
+        width: 70%;
+        margin-left: 15%;
+        padding-bottom: 5%;
+    }
+    .signup-form {
+        font-size: 10px;
+        width: 70%;
+        margin-left: 15%;
+        padding-bottom: 5%;
+    }
+    .btn {
+        margin-left: 25%;
+    }
+}
+
