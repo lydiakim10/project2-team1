@@ -40,20 +40,23 @@ router.get('/:id', withAuth, async (req, res) => {
 });
 
 // User Create Route
+
 router.post('/', async (req, res) => {
     try {
-    const userData = await User.create({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password
-    });
-    req.session.save(() => {
-        req.session.user_id = userData.id;
-        req.session.username = userData.username;
-        req.session.loggedIn = true;
-    });
+        const userData = await User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password
+        });
+        req.session.save(() => {
+            console.log('Updating session after signup')
+            req.session.user_id = userData.id;
+            req.session.username = userData.username;
+            req.session.loggedIn = true;
+            // res.json({ user: userData, message: 'You are now logged in!' });
+        });
 
-    res.json(userData);
+        res.json({ user: userData });
 
     } catch (err) {
         res.status(500).json(err);
@@ -64,11 +67,11 @@ router.post('/', async (req, res) => {
 
 router.post('/login', async (req, res) => {
    try {
-    const userData = await User.findOne({
-        where: {
-            email: req.body.email
-        }
-    });
+        const userData = await User.findOne({
+            where: {
+                email: req.body.email
+            }
+        });
         if (!userData) {
             res.status(404).json({ message: 'No user with that email address!'});
             return;
@@ -97,9 +100,11 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res) => {
     if (req.session.loggedIn) {
         req.session.destroy(() => {
+            console.log('logged out')
             res.status(204).end();
         });
     } else {
+        console.log('here')
         res.status(404).end();
     }
 });
