@@ -23,4 +23,4 @@ Record.belongsTo(Category, {
     foreignKey: 'category_id'
 });
 
-module.exports = { User };
+module.exports = { User, Record, Category };
