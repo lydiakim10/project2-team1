@@ -1,0 +1,17 @@
+{{#if record.length}}
+<section>
+    <h3>Your Spendings</h3>
+    <ol>
+        {{#each records as |record|}}
+        <ul>
+            <div class="record-name">
+                <a href="/record/{{id}}">{{title}}</a>
+            </div>
+            <button type="button" class="delete-record-btn">🗑️</button>
+        </ul>
+        {{/each}}
+    </ol>
+</section>
+{{/if}}
+
+<script src="/js/delete-record.js"></script>
