@@ -29,11 +29,27 @@
   <section>
     <h3>Budget</h3>
         <form id="form">
-          <div class="row justify-content-center">
+          <div class="container text-center">
+            <div class="row">
             <div class="col-4">
-              <label for="date" class="form-sections">Date: </label>
-              <div class="date-picker">
-                <input type="date" min="1" class="form-control" id="date-select" autocomplete="off">
+             <label for="month" class="form-sections">Month:</label>
+              <div class="category-input">
+                <select id="category-expense" class="form-control" id="datemonth" autocomplete="off">
+                  <option value="Select">--- Month ---</option>
+                  <option value="January">January</option>
+                  <option value="February">February</option>
+                  <option value="March">March</option>
+                  <option value="April">April</option>
+                  <option value="May">May</option>
+                  <option value="June">June</option>
+                  <option value="July">July</option>
+                  <option value="August">August</option>
+                  <option value="September">September</option>
+                  <option value="October">October</option>
+                  <option value="November">November</option>
+                  <option value="December">December</option>
+                </select>
+              </div>
               </div>
             </div>
           
@@ -44,7 +60,8 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-secondary">Add Budget</button>
+          <br>
+          <button type="button" class="btn btn-outline-secondary addbudgetBtn">Add Budget</button>
         </form>
       </div>
   </section>
@@ -83,7 +100,8 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn btn-outline-secondary">Add Expense</button>
+        <br>
+        <button type="button" class="btn btn-outline-secondary addexpenseBtn">Add Expense</button>
       </form>
     </div>
 </section>
@@ -91,4 +109,6 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
-<script src="/js/record.js"></script>
+<script src="/js/add-record.js"></script>
+<script src="/js/delete-record.js"></script>
+<script src="/js/add-budget.js"></script>

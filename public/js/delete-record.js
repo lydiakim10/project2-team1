@@ -2,7 +2,7 @@ async function deleteFormHandler(event) {
     event.preventDefault();
 
     const id = window.location.toString().split("/") [
-        window.location.toString().split("/").legnth -1
+        window.location.toString().split("/").length -1
     ];
 
     const response = await fetch (`/api/record/${id}`, {
