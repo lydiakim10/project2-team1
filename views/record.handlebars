@@ -1,17 +1,16 @@
-{{#if record.length}}
-<section>
-    <h3>Your Spendings</h3>
-    <ol>
-        {{#each records as |record|}}
-        <ul>
+  <!-- This will display User's input in their budgets and expenses -->
+    {{#if record.length}}
+    <section>
+      <h3>History</h3>
+        <ol>
+          {{#each records as |record|}}
+          <ul>
             <div class="record-name">
-                <a href="/record/{{id}}">{{title}}</a>
+              <a href="/record/{{id}}">{{title}}</a>
             </div>
             <button type="button" class="delete-record-btn">🗑️</button>
-        </ul>
-        {{/each}}
-    </ol>
-</section>
-{{/if}}
-
-<script src="/js/delete-record.js"></script>
+          </ul>
+            {{/each}}
+        </ol>
+    </section>
+    {{/if}}

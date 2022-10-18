@@ -1,0 +1,95 @@
+<!-- Summary overview of Budget and Expense of User's Input -->
+  <section>
+    <h1>Expense Tracker</h1>
+    <div class="container text-center">
+      <h2>Current Balance</h2>
+      <div id="budget-balance">$0.00</div>
+      <div class="main-date" id="date-display"></div>
+        
+      <!-- Budget -->
+      <div class="row justify-content-center">
+        <div class="col-4">
+          <div>
+            <h4>Budget</h4>
+            <p id="money-plus" class="money plus">+$0.00</p>
+          </div>
+        </div>
+
+        <!-- Expense -->
+        <div class="col-4">
+          <div>
+            <h4>Expense</h4>
+            <p id="money-minus" class="money minus">-$0.00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Place for User to input their Budgets -->
+  <section>
+    <h3>Budget</h3>
+        <form id="form">
+          <div class="row justify-content-center">
+            <div class="col-4">
+              <label for="date" class="form-sections">Date: </label>
+              <div class="date-picker">
+                <input type="date" min="1" class="form-control" id="date-select" autocomplete="off">
+              </div>
+            </div>
+          
+            <div class="col-4">
+              <label for="amount" class="form-sections">Amount:</label>
+              <div class="amt-input">
+                <input type="text" class="form-control" id="amount-input"/>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-secondary">Add Budget</button>
+        </form>
+      </div>
+  </section>
+
+<!-- Place for User to input their Expenses throughout the month -->
+<section>
+  <h3>Expense</h3>
+      <form id="form">
+        <div class="container text-center">
+          <div class="row">
+            <div class="col">
+              <label for="category" class="form-sections">Category:</label>
+              <div class="category-input">
+                <select id="category-expense" class="form-control" autocomplete="off">
+                  <option value="Select">--- Select ---</option>
+                  <option value="Gas">Gas</option>
+                  <option value="Utilities">Utilities</option>
+                  <option value="Rent">Rent</option>
+                  <option value="Food and Groceries">Food and Groceries</option>
+                </select>
+              </div>
+            </div>
+        
+            <div class="col">
+              <label for="date" class="form-sections">Date: </label>
+              <div class="date-picker">
+                <input type="date" min="1" class="form-control" id="dates-schedule-edit" autocomplete="off">
+              </div>
+            </div>
+              
+            <div class="col">
+              <label for="amount" class="form-sections">Amount:</label>
+              <div class="amt-input">
+                <input type="text" class="form-control" id="amount-input"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline-secondary">Add Expense</button>
+      </form>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
+<script src="/js/record.js"></script>

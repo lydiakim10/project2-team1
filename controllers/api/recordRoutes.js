@@ -3,6 +3,10 @@ const { Record } = require('../../models');
 const withAuth = require('../../utils/auth');
 const sequelize = require('../../config/connection');
 
+
+// USE package for dates
+const moment = require('moment')
+
 // GET all records
 router.get('/', withAuth, async(req, res) => {
     try {
@@ -77,6 +81,18 @@ router.put('/:user_id/:id', withAuth, async(req, res) => {
         res.status(500).json(err);
     }
 });
+
+// SELECT & FILTER date
+const amountByMonth = await getAmountByMonth(filter)
+let currentDate = moment.utc(new Date()).format('YYYY-M')
+let filterDate
+
+if (selectedDate !== 'all') {
+  filterDate = selectedDate ? selectedDate : currentDate
+  const [year, month] = filterDate.split('-')
+  filter.year = Number(year)
+  filter.month = Number(month)
+}
 
 // DELETE A record 
 router.delete('/:id', withAuth, async(req, res) => {
