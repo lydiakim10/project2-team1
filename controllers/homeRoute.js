@@ -39,14 +39,6 @@ router.get("/record/:id", async(req, res) => {
     }
 });
 
-<<<<<<< HEAD
-router.get("/", (req, res) => {
-    res.render('homepage', {
-        loggedIn: req.session.loggedIn,
-    });
-});
-=======
->>>>>>> 3d6e8405fc9ce937ea6a9a237fe385fde9fa1dad
 
 router.get("/login", (req, res) => {
     if (req.session.loggedIn) {

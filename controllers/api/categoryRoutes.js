@@ -4,7 +4,7 @@ const withAuth = require('../../utils/auth');
 const sequelize = require('../../config/connection');
 
 // GET all Categories
-router.get('/', async(req, res) => {
+router.get('/', withAuth, async(req, res) => {
     try {
         const data = await Category.findAll({});
         res.status(200).json(data);
@@ -14,7 +14,7 @@ router.get('/', async(req, res) => {
 });
 
 // GET a single Category by id 
-router.get('/:id', async(req, res) => {
+router.get('/:id', withAuth, async(req, res) => {
     try {
         const data = await Category.findOne({
             where: {
@@ -28,7 +28,7 @@ router.get('/:id', async(req, res) => {
 });
 
 // CREATE a new Category
-router.post('/', async(req, res) => {
+router.post('/', withAuth, async(req, res) => {
     try {
         const data = await Category.create({
             name: req.body.name,
@@ -42,7 +42,7 @@ router.post('/', async(req, res) => {
 });
 
 // UPDATE a Category
-router.put('/:id', async(req, res) => {
+router.put('/:id', withAuth, async(req, res) => {
     try {
         const data = await Category.update({
             id: req.body.id,
@@ -65,7 +65,7 @@ router.put('/:id', async(req, res) => {
 });
 
 // DELETE A Category 
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', withAuth, async(req, res) => {
     try {
         const data = await Category.destroy({
             where: {

@@ -8,7 +8,7 @@ const sequelize = require('../../config/connection');
 const moment = require('moment')
 
 // GET all records
-router.get('/', async(req, res) => {
+router.get('/', withAuth, async(req, res) => {
     try {
         const data = await Record.findAll({
             where: {
@@ -22,7 +22,7 @@ router.get('/', async(req, res) => {
 });
 
 // GET a single record by id 
-router.get('/:id', async(req, res) => {
+router.get('/:id', withAuth, async(req, res) => {
     try {
         const data = await Record.findOne({
             where: {
@@ -43,8 +43,8 @@ router.get('/:id', async(req, res) => {
 });
 
 // CREATE a new record
-// router.post('/', withAuth, async(req, res) => {
-router.post('/', async(req, res) => {
+router.post('/', withAuth, async(req, res) => {
+
     try {
         const data = await Record.create({
             category_id: req.body.category_id,
@@ -60,7 +60,7 @@ router.post('/', async(req, res) => {
 });
 
 // UPDATE a record
-router.put('/:id', async(req, res) => {
+router.put('/:id', withAuth, async(req, res) => {
     try {
         const data = await Record.update({
             category_id: req.body.category_id,
@@ -89,14 +89,14 @@ let currentDate = moment.utc(new Date()).format('YYYY-M')
 let filterDate
 
 if (selectedDate !== 'all') {
-  filterDate = selectedDate ? selectedDate : currentDate
-  const [year, month] = filterDate.split('-')
-  filter.year = Number(year)
-  filter.month = Number(month)
+    filterDate = selectedDate ? selectedDate : currentDate
+    const [year, month] = filterDate.split('-')
+    filter.year = Number(year)
+    filter.month = Number(month)
 }
 
 // DELETE A record 
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', withAuth, async(req, res) => {
     try {
         const data = await Record.destroy({
             where: {
