@@ -2,18 +2,16 @@ const router = require("express").Router();
 const { Record, User, Category } = require("../models");
 const withAuth = require("../utils/auth");
 
-router.get("/", async (req, res) => {
+router.get("/", async(req, res) => {
     try {
-        // const recordData = await Record.findall({
-        //     include: [
-        //         {
-        //             model: User,
-        //             attributes: ["username"],
-        //         },
-        //     ],
-        // });
+        const recordData = await Record.findall({
+            include: [{
+                model: User,
+                attributes: ["username"],
+            }, ],
+        });
 
-        // const record = recordData.map((record) => record.get({ plain: true }));
+        const record = recordData.map((record) => record.get({ plain: true }));
 
         res.render("homepage", {
             // record,
@@ -24,22 +22,22 @@ router.get("/", async (req, res) => {
     }
 });
 
-// router.get("/record/:id", async (req, res) => {
-//     try {
-//         const recordData = await Record.findbyPk(req.params.id, {
-//             attributes: ["category_id", "cost", "merchant"],
-//         });
+router.get("/record/:id", async(req, res) => {
+    try {
+        const recordData = await Record.findbyPk(req.params.id, {
+            attributes: ["category_id", "cost", "merchant"],
+        });
 
-//         const record = recordData.get({ plain: true });
+        const record = recordData.get({ plain: true });
 
-//         res.render("record", {
-//             ...record,
-//             loggedIn: req.session.loggedIn
-//         });
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// });
+        res.render("record", {
+            ...record,
+            loggedIn: req.session.loggedIn
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 
 router.get("/login", (req, res) => {

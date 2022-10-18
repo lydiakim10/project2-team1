@@ -12,7 +12,7 @@ router.get('/', withAuth, async(req, res) => {
     try {
         const data = await Record.findAll({
             where: {
-                user_id: req.params.user_id
+                user_id: req.body.user_id
             }
         });
         res.status(200).json(data);
@@ -22,7 +22,7 @@ router.get('/', withAuth, async(req, res) => {
 });
 
 // GET a single record by id 
-router.get('/:user_id/:id', withAuth, async(req, res) => {
+router.get('/:id', withAuth, async(req, res) => {
     try {
         const data = await Record.findOne({
             where: {
@@ -33,7 +33,6 @@ router.get('/:user_id/:id', withAuth, async(req, res) => {
                 'user_id',
                 'category_id',
                 'cost',
-                'date',
                 'merchant',
             ],
         });
@@ -45,11 +44,13 @@ router.get('/:user_id/:id', withAuth, async(req, res) => {
 
 // CREATE a new record
 router.post('/', withAuth, async(req, res) => {
+
     try {
         const data = await Record.create({
             category_id: req.body.category_id,
             cost: req.body.cost,
-            user_id: req.session.user_id
+            user_id: req.body.user_id,
+            merchant: req.body.merchant,
         })
         res.status(200).json(data)
     } catch (err) {
@@ -59,13 +60,13 @@ router.post('/', withAuth, async(req, res) => {
 });
 
 // UPDATE a record
-router.put('/:user_id/:id', withAuth, async(req, res) => {
+router.put('/:id', withAuth, async(req, res) => {
     try {
         const data = await Record.update({
-            category_id: req.body.category,
+            category_id: req.body.category_id,
             cost: req.body.cost,
+            user_id: req.body.user_id,
             merchant: req.body.merchant,
-            date: req.body.date,
         }, {
             where: {
                 id: req.params.id
@@ -88,10 +89,10 @@ let currentDate = moment.utc(new Date()).format('YYYY-M')
 let filterDate
 
 if (selectedDate !== 'all') {
-  filterDate = selectedDate ? selectedDate : currentDate
-  const [year, month] = filterDate.split('-')
-  filter.year = Number(year)
-  filter.month = Number(month)
+    filterDate = selectedDate ? selectedDate : currentDate
+    const [year, month] = filterDate.split('-')
+    filter.year = Number(year)
+    filter.month = Number(month)
 }
 
 // DELETE A record 
