@@ -12,7 +12,7 @@ Record.init({
     },
     user_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: 'user',
             key: 'id',
@@ -20,7 +20,7 @@ Record.init({
     },
     category_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: 'category',
             key: 'id',
@@ -33,20 +33,21 @@ Record.init({
             isFloat: true,
         }
     },
-    date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        validate: {
-            isDate: true,
-        }
-    },
+    // date: {
+    //     type: DataTypes.DATE,
+    //     allowNull: false,
+    //     defaultValue: sequelize.NOW,
+    //     validate: {
+    //         isDate: true,
+    //     }
+    // },
     merchant: {
         type: DataTypes.STRING,
         allowNull: false,
     }
 }, {
     sequelize,
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     underscored: true,
     modelName: 'record',

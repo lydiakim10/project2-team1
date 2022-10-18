@@ -4,13 +4,9 @@ const withAuth = require('../../utils/auth');
 const sequelize = require('../../config/connection');
 
 // GET all Categories
-router.get('/:user_id', withAuth, async(req, res) => {
+router.get('/', async(req, res) => {
     try {
-        const data = await Category.findAll({
-            where: {
-                user_id: req.params.user_id
-            }
-        });
+        const data = await Category.findAll({});
         res.status(200).json(data);
     } catch (err) {
         res.status(500).json(err);
@@ -18,7 +14,7 @@ router.get('/:user_id', withAuth, async(req, res) => {
 });
 
 // GET a single Category by id 
-router.get('/:user_id/:id', withAuth, async(req, res) => {
+router.get('/:id', async(req, res) => {
     try {
         const data = await Category.findOne({
             where: {
@@ -32,12 +28,11 @@ router.get('/:user_id/:id', withAuth, async(req, res) => {
 });
 
 // CREATE a new Category
-router.post('/', withAuth, async(req, res) => {
+router.post('/', async(req, res) => {
     try {
         const data = await Category.create({
-            id: req.body.id,
             name: req.body.name,
-            budget: req.session.budget
+            budget: req.body.budget
         })
         res.status(200).json(data)
     } catch (err) {
@@ -47,12 +42,12 @@ router.post('/', withAuth, async(req, res) => {
 });
 
 // UPDATE a Category
-router.put('/:user_id/:id', withAuth, async(req, res) => {
+router.put('/:id', async(req, res) => {
     try {
         const data = await Category.update({
             id: req.body.id,
             name: req.body.name,
-            budget: req.session.budget
+            budget: req.body.budget
         }, {
             where: {
                 id: req.params.id
@@ -70,7 +65,7 @@ router.put('/:user_id/:id', withAuth, async(req, res) => {
 });
 
 // DELETE A Category 
-router.delete('/:id', withAuth, async(req, res) => {
+router.delete('/:id', async(req, res) => {
     try {
         const data = await Category.destroy({
             where: {
