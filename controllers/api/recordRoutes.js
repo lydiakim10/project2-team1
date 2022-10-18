@@ -83,18 +83,6 @@ router.put('/:id', withAuth, async(req, res) => {
     }
 });
 
-// SELECT & FILTER date
-const amountByMonth = await getAmountByMonth(filter)
-let currentDate = moment.utc(new Date()).format('YYYY-M')
-let filterDate
-
-if (selectedDate !== 'all') {
-    filterDate = selectedDate ? selectedDate : currentDate
-    const [year, month] = filterDate.split('-')
-    filter.year = Number(year)
-    filter.month = Number(month)
-}
-
 // DELETE A record 
 router.delete('/:id', withAuth, async(req, res) => {
     try {
