@@ -1,5 +1,24 @@
-  <!-- This will display User's input in their budgets and expenses -->
-    {{#if record.length}}
+  <!-- USER'S BUDGET AND EXPENSE HISTORY. This will display User's input in their budgets and expenses -->
+{{#if record.length}}
+<section class="content">
+  <table class="table">
+    <thead>
+      {{#each records as |record|}}
+      <tr class="record-name">
+        <th>Name <a href="/record/{{id}}">{{title}}</a></th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Options</th>
+        <button type="button" class="delete-record-btn">🗑️</button>
+      </tr>
+    </thead>
+    <tbody id="exp-bud-hist"></tbody>
+  </table>
+</section>
+{{/if}}
+
+
+    {{!-- {{#if record.length}}
     <section>
       <h3>History</h3>
         <ol>
@@ -13,4 +32,4 @@
             {{/each}}
         </ol>
     </section>
-    {{/if}}
+    {{/if}} --}}
