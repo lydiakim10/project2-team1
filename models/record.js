@@ -12,39 +12,42 @@ Record.init({
     },
     user_id: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
             model: 'user',
             key: 'id',
         }
     },
-    category_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-            model: 'category',
-            key: 'id',
-        }
-    },
-    cost: {
+
+    amount: {
         type: DataTypes.FLOAT,
         allowNull: false,
         validate: {
             isFloat: true,
         }
     },
-    // date: {
-    //     type: DataTypes.DATE,
-    //     allowNull: false,
-    //     defaultValue: sequelize.NOW,
-    //     validate: {
-    //         isDate: true,
-    //     }
-    // },
+    date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        validate: {
+            isDate: true,
+        }
+    },
     merchant: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    type:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    created_at: {
+        type: DataTypes.DATE
+    },
+    updated_at: {
+        type: DataTypes.DATE
     }
+
 }, {
     sequelize,
     timestamps: true,
