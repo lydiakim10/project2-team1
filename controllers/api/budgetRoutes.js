@@ -1,47 +1,25 @@
 const router = require('express').Router();
-const { Record } = require('../../models');
+const { Budget } = require('../../models');
 const withAuth = require('../../utils/auth');
 const sequelize = require('../../config/connection');
 
-
-// USE package for dates
-const moment = require('moment')
-
-// GET all records
+// GET all Budgets
 router.get('/', withAuth, async(req, res) => {
     try {
-        const data = await Record.findAll({
-            where: {
-                user_id: req.body.user_id
-            },
-            attributes: [
-                'id',
-                'user_id',
-                'type',
-                'amount',
-                'merchant',
-            ],
-        });
+        const data = await Budget.findAll({});
         res.status(200).json(data);
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-// GET a single record by id 
+// GET a single Budget by id 
 router.get('/:id', withAuth, async(req, res) => {
     try {
-        const data = await Record.findOne({
+        const data = await Budget.findOne({
             where: {
                 id: req.params.id
             },
-            attributes: [
-                'id',
-                'user_id',
-                'type',
-                'amount',
-                'merchant',
-            ],
         });
         res.status(200).json(data);
     } catch (err) {
@@ -49,16 +27,12 @@ router.get('/:id', withAuth, async(req, res) => {
     }
 });
 
-// CREATE a new record
+// CREATE a new Budget
 router.post('/', withAuth, async(req, res) => {
-
     try {
-        const data = await Record.create({
-            type: req.body.type,
-            amount: req.body.amount,
-            user_id: req.body.user_id,
-            merchant: req.body.merchant,
-            date: req.body.date
+        const data = await Budget.create({
+            month: req.body.month,
+            budget: req.body.budget
         })
         res.status(200).json(data)
     } catch (err) {
@@ -67,14 +41,13 @@ router.post('/', withAuth, async(req, res) => {
     };
 });
 
-// UPDATE a record
+// UPDATE a Category
 router.put('/:id', withAuth, async(req, res) => {
     try {
-        const data = await Record.update({
-            type: req.body.type,
-            amount: req.body.amount,
-            user_id: req.body.user_id,
-            merchant: req.body.merchant,
+        const data = await Budget.update({
+            id: req.body.id,
+            month: req.body.month,
+            budget: req.body.budget
         }, {
             where: {
                 id: req.params.id
@@ -91,10 +64,10 @@ router.put('/:id', withAuth, async(req, res) => {
     }
 });
 
-// DELETE A record 
+// DELETE A Category 
 router.delete('/:id', withAuth, async(req, res) => {
     try {
-        const data = await Record.destroy({
+        const data = await Budget.destroy({
             where: {
                 id: req.params.id
             }

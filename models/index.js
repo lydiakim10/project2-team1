@@ -1,6 +1,6 @@
 const User = require('./user');
 const Record = require('./record');
-const Category = require('./category');
+const Budget = require('./budget');
 
 // User one to many relationship to Post
 User.hasMany(Record, {
@@ -13,14 +13,12 @@ Record.belongsTo(User, {
 });
 
 // Category one to many relationship to record
-Category.hasMany(Record, {
-    foreignKey: 'category_id'
+User.hasMany, (Budget, {
+    foreignKey: 'user_id'
 });
 
-
-// Record one to one relationship with Catogory
-Record.belongsTo(Category, {
-    foreignKey: 'category_id'
+Budget.belongsTo(User, {
+    foreign_key: 'user_id'
 });
 
-module.exports = { User, Record, Category };
+module.exports = { User, Record, Budget };

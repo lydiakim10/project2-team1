@@ -4,22 +4,20 @@ const withAuth = require("../utils/auth");
 
 router.get("/", withAuth, async (req, res) => {
     try {
-        // const recordData = await Record.findall({
-        //     include: [
-        //         {
-        //             model: User,
-        //             attributes: ["username"],
-        //         },
-        //     ],
-        // });
-
-        // const record = recordData.map((record) => record.get({ plain: true }));
+        const recordData = await Record.findAll({
+            attributes: ["type", "amount", "merchant", "date"],
+            where: {
+                    user_id: req.session.user_id
+                },
+        });
+        const record = recordData.map((record) => record.get({ plain: true }));
 
         res.render("dashboard", {
-            // record,
+            record,
             loggedIn: req.session.loggedIn
         });
     } catch (err) {
+        console.log(err)
         res.status(500).json(err);
     }
 });
@@ -27,7 +25,7 @@ router.get("/", withAuth, async (req, res) => {
 router.get("/record/:id", async (req, res) => {
     try {
         const recordData = await Record.findbyPk(req.params.id, {
-            attributes: ["category_id", "cost", "merchant", "date"],
+            attributes: ["type", "amount", "merchant", "date"],
         });
 
         const record = recordData.get({ plain: true });
