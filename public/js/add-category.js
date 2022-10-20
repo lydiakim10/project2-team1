@@ -17,6 +17,7 @@ async function addCategory(event) {
     });
 
     if (response.ok) {
+        window.location.reload();
         genCategorySelector();
         categoryBudget.value = '';
         categoryName.value = '';

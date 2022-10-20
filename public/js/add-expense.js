@@ -3,7 +3,7 @@ const addExpenseForm = async (event) => {
 
     const category = document.querySelector('#category-select').value.trim();
     const merchant = document.querySelector('#mercha-input').value.trim();
-    const date = document.querySelector('#date-input').value.trim();
+    const date = document.querySelector('#date-input').value.trim()
     const amount = document.querySelector('#amount-input').value.trim();
 
     if (category && merchant && date && amount) {

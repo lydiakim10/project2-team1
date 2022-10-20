@@ -2,11 +2,13 @@
 <section>
   <div class="container text-center">
     <h2>Current Balance</h2>
-    <div id="budget-balance">$0.00</div>
-    <div class="main-date" id="date-display"></div>
+    {{#each categoryData}}
+    <div id="budget-balance">{{this.category_name}} : {{this.budget}}</div>
+    {{/each}}
+    {{!-- <div class="main-date" id="date-display"></div> --}}
         
     <!-- Budget -->
-    <div class="row justify-content-center">
+    {{!-- <div class="row justify-content-center">
       <div class="col-4">
         <div>
           <h4>Budget</h4>
@@ -26,11 +28,11 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
 </section>
 
   <!-- Place for User to input their Budgets -->
-<section>
+{{!-- <section>
   <h3>Budget</h3>
   <form id="form">
     <div class="container text-center">
@@ -66,11 +68,12 @@
     </div>
     <button type="button" class="btn btn-outline-secondary addbudgetBtn">Add Budget</button>
   </form>
-</section>
+</section> --}}
 
 {{!-- Place for User to input a custom Category field --}}
 <section>
   <h3>Category</h3>
+  <br>
       <form id="category-form">
         <div class="container text-center">
           <div class="row">
@@ -95,6 +98,7 @@
 <!-- Place for User to input their Expenses throughout the month (add a record) -->
 <section>
   <h3>Expense</h3>
+  <br>
       <form id="form">
         <div class="container text-center">
           <div class="row">
@@ -138,12 +142,15 @@
       </form>
     </div>
 </section>
-
+<br>
+<br>
 {{!-- Show all users records --}}
 <section>
   <ul id='records'>
   {{#each recordData}}
-  <li>{{this.type}} {{this.amount}} {{this.merchant}} {{this.date}}</li>  
+  <div class="card-body recordcard">
+   <li>{{this.date}} &nbsp;&nbsp;&nbsp;&nbsp;  Category: {{this.type}}  &nbsp;&nbsp;&nbsp;&nbsp;  Merchant: {{this.merchant}}  &nbsp;&nbsp;&nbsp;&nbsp;  Amount: ${{this.amount}} </li>  
+  </div>  
   {{/each}}
   </ul>
 </section>

@@ -41,7 +41,7 @@ router.post('/', withAuth, async(req, res) => {
         const data = await Category.create({
             category_name: req.body.category_name,
             budget: req.body.budget,
-            user_id: req.body.user_id
+            user_id: req.session.user_id
         })
         res.status(200).json(data)
     } catch (err) {
