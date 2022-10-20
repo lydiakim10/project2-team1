@@ -49,7 +49,7 @@ router.post('/', async(req, res) => {
         const data = await Record.create({
             type: req.body.type,
             amount: req.body.amount,
-            user_id: req.body.user_id,
+            user_id: req.session.user_id,
             merchant: req.body.merchant,
             date: req.body.date
         })

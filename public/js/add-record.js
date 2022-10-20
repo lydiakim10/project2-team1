@@ -21,6 +21,7 @@ async function addRecord(event) {
     });
 
     if (response.ok) {
+        window.location.reload();
         recordAmount.value = '';
         recordType.value = '';
         recordMerchant.value = '';
