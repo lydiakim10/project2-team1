@@ -10,7 +10,7 @@ Category.init({
         primaryKey: true,
         autoIncrement: true,
     },
-    name: {
+    category_name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -20,9 +20,18 @@ Category.init({
         validate: {
             isFloat: true,
         }
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'user',
+            key: 'id',
+        }
     }
 }, {
     sequelize,
+    paranoid: true,
     timestamps: false,
     freezeTableName: true,
     underscored: true,

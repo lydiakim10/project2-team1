@@ -9,8 +9,7 @@ class User extends Model {
     }
 }
 
-User.init(
-    {
+User.init({
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -36,22 +35,28 @@ User.init(
                 len: [8],
             },
         },
+        resetString: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            unique: true
+        }
     },
 
     // Encrypt user's password before adding to database
     {
         hooks: {
-        beforeCreate: async (newUserData) => {
+            beforeCreate: async(newUserData) => {
 
-        newUserData.password = await bcrypt.hash(newUserData.password, 10);
-        return newUserData;
-      },
-        beforeUpdate: async (updatedUserData) => {
-        updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
-        return updatedUserData;
-      },
+                newUserData.password = await bcrypt.hash(newUserData.password, 10);
+                return newUserData;
+            },
+            beforeUpdate: async(updatedUserData) => {
+                updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+                return updatedUserData;
+            },
         },
         sequelize,
+        paranoid: true,
         timestamps: false,
         freezeTableName: true,
         underscored: true,

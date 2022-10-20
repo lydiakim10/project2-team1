@@ -64,7 +64,31 @@
   </form>
 </section>
 
-<!-- Place for User to input their Expenses throughout the month -->
+{{!-- Place for User to input a custom Category field --}}
+<section>
+  <h3>Category</h3>
+      <form id="category-form">
+        <div class="container text-center">
+          <div class="row">
+
+              <div class="col">
+              <label for="catName" class="form-sections">Category Name:</label>
+              <input type="text" class="form-control" id="catName" required>
+            </div>
+              
+            <div class="col">
+              <label for="catBudget" class="form-sections">Budget Amounts:</label>
+                <input type="text" class="form-control" id="catBudget" required>
+            </div>
+          </div>
+        </div>
+        <br>
+        <button id="createCategory" type="submit" class="btn btn-outline-secondary addexpenseBtn">Add Category</button>
+      </form>
+    </div>
+</section>
+
+<!-- Place for User to input their Expenses throughout the month (add a record) -->
 <section>
   <h3>Expense</h3>
       <form id="form">
@@ -72,44 +96,52 @@
           <div class="row">
 
             <div class="col">
-              <label for="category" class="form-sections">Category:</label>
-              <select id="category-select" class="form-control" autocomplete="off">
-                <option value="Select">--- Select ----</option>
+              <label for="type" class="form-sections">Category:</label>
+              <select id="type" class="form-control" autocomplete="off" required>
+                {{#each categoryData}}
+                <option value="{{this.category_name}}">{{this.category_name}}</option>
+                {{/each}}
+                {{!-- <option value="Select">--- Select ----</option>
                 <option value="Food">Food</option>
                 <option value="Rent">Rent</option>
                 <option value="Utilities">Utilities</option>
                 <option value="Entertainment">Entertainment</option>
                 <option value="Transportation">Transportation</option>
-                <option value="Other">Other</option>
+                <option value="Other">Other</option> --}}
               </select>
             </div>
 
               <div class="col">
               <label for="merchant" class="form-sections">Merchant:</label>
-              <div class="merch-input">
-                <input type="text" class="form-control" id="mercha-input"/>
-              </div>
+                <input type="text" class="form-control" id="merchant"/>
             </div>
         
-            <div class="col">
-              <label for="date" class="form-sections">Date: </label>
+            <div class="col">              
               <div class="date-picker">
-                <input type="date" min="1" class="form-control" id="date-input" autocomplete="off">
+                <label for="date" class="form-sections">Date: </label>
+                <input type="date" min="1" class="form-control" id="date" autocomplete="off">
               </div>
             </div>
               
             <div class="col">
               <label for="amount" class="form-sections">Amount:</label>
-              <div class="amt-input">
-                <input type="text" class="form-control" id="amount-input"/>
-              </div>
+                <input type="text" class="form-control" id="amount"/>
             </div>
           </div>
         </div>
         <br>
-        <button type="button" class="btn btn-outline-secondary addexpenseBtn">Add Expense</button>
+        <button id="createRecord" type="button" class="btn btn-outline-secondary addexpenseBtn">Add Expense</button>
       </form>
     </div>
+</section>
+
+{{!-- Show all users records --}}
+<section>
+  <ul id='records'>
+  {{#each recordData}}
+  <li>{{this.type}} {{this.amount}} {{this.merchant}} {{this.date}}</li>  
+  {{/each}}
+  </ul>
 </section>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -118,3 +150,4 @@
 <script src="/js/add-record.js"></script>
 <script src="/js/delete-record.js"></script>
 <script src="/js/add-budget.js"></script>
+<script src="/js/add-category.js"></script>

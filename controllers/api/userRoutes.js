@@ -1,24 +1,26 @@
 const router = require('express').Router();
+const { where } = require('sequelize');
 const { User } = require('../../models');
-const withAuth = require ('../../utils/auth');
+const withAuth = require('../../utils/auth');
+const randomstring = require('randomstring');
 
 // User GET Route
-router.get('/', async (req, res) => {
+router.get('/', async(req, res) => {
     try {
         const userData = await User.findAll({
             attributes: { exclude: ['password'] }
         });
 
         res.json(userData);
-    
+
     } catch (err) {
         res.status(500).json(err);
-    } 
+    }
 });
 
 
 // Single User GET Route
-router.get('/:id', withAuth, async (req, res) => {
+router.get('/:id', async(req, res) => {
     try {
         const userData = await User.findOne({
             attributes: { exclude: ['password'] },
@@ -28,7 +30,7 @@ router.get('/:id', withAuth, async (req, res) => {
         });
 
         if (!userData) {
-            res.status(404).json({ message: 'No user with this ID'});
+            res.status(404).json({ message: 'No user with this ID' });
             return;
         }
 
@@ -41,7 +43,7 @@ router.get('/:id', withAuth, async (req, res) => {
 
 // User Create Route
 
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
     try {
         const userData = await User.create({
             username: req.body.username,
@@ -60,20 +62,20 @@ router.post('/', async (req, res) => {
 
     } catch (err) {
         res.status(500).json(err);
-    }    
+    }
 });
 
 // User Login Route
 
-router.post('/login', async (req, res) => {
-   try {
+router.post('/login', async(req, res) => {
+    try {
         const userData = await User.findOne({
             where: {
                 email: req.body.email
             }
         });
         if (!userData) {
-            res.status(404).json({ message: 'No user with that email address!'});
+            res.status(404).json({ message: 'No user with that email address!' });
             return;
         }
 
@@ -87,8 +89,8 @@ router.post('/login', async (req, res) => {
             req.session.user_id = userData.id;
             req.session.username = userData.username;
             req.session.loggedIn = true;
-      
-            res.json({ user: userData, message: 'You are now logged in!' });
+
+            res.json({ user_id: userData.id, message: 'You are now logged in!' });
         });
     } catch (err) {
         res.status(500).json(err);
@@ -108,5 +110,74 @@ router.post('/logout', (req, res) => {
         res.status(404).end();
     }
 });
+
+// Create Password Reset Link
+router.put('/get-reset-link', async(req, res) => {
+    // get user that needs password reset
+    try {
+        const userData = await User.findOne({
+            where: {
+                email: `${req.body.email}`
+            }
+        });
+        if (!userData) {
+            res.status(404).json({ message: 'No user with that email!' });
+            return;
+        }
+        const updateUserEmail = await userData;
+
+        // Get Random String for Reset Link
+        const randomString = randomstring.generate();
+        try {
+            const updatedPassword = await User.update({ resetString: randomString }, {
+                where: { email: updateUserEmail.email }
+            });
+            if (updatedPassword) {
+                // Email the link to user
+                //randomString
+
+                res.status(200).json('Check your email for a password reset link.');
+            } else {
+                res.status(500).send('Something went wrong...');
+            }
+        } catch (err) {
+            //res.status(500).json(`second ${err}`);
+            res.send(`second ${err}`);
+        }
+    } catch (err) {
+        res.send(`second ${err}`);
+        //res.status(500).json(`first ${err}`);
+    }
+});
+
+// Password Reset Route
+router.put('/:password_reset', async(req, res) => {
+    // get user that needs password reset
+    try {
+        const userData = await User.findOne({
+            where: {
+                reset: req.params.password_reset
+            }
+        });
+        if (!userData) {
+            res.status(404).json({ message: 'No user with that reset link!' });
+            return;
+        }
+        const updateUserData = await userData.json();
+
+        // reset the users password
+        try {
+            const updatedPassword = await User.update({ password: req.body.password }, { where: { user_id: updateUserData[0].user_id } });
+            if (updatedPassword.ok) {
+                res.redirect('/login');
+            }
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 
 module.exports = router;

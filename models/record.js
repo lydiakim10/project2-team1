@@ -37,20 +37,14 @@ Record.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    type:{
+    type: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    created_at: {
-        type: DataTypes.DATE
-    },
-    updated_at: {
-        type: DataTypes.DATE
     }
-
 }, {
     sequelize,
-    timestamps: true,
+    paranoid: true,
+    timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'record',
