@@ -58,7 +58,7 @@ router.post('/', async(req, res) => {
             res.json({ user: userData, message: 'You are now logged in!' });
         });
 
-        res.json({ user: userData });
+        // res.json({ user: userData });
 
     } catch (err) {
         res.status(500).json(err);
