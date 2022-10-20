@@ -3,6 +3,8 @@ const { where } = require('sequelize');
 const { User } = require('../../models');
 const withAuth = require('../../utils/auth');
 const randomstring = require('randomstring');
+const nodemailer = require('nodemailer');
+
 
 // User GET Route
 router.get('/', async(req, res) => {
@@ -58,8 +60,6 @@ router.post('/', async(req, res) => {
             res.json({ user: userData, message: 'You are now logged in!' });
         });
 
-        res.json({ user: userData });
-
     } catch (err) {
         res.status(500).json(err);
     }
@@ -78,25 +78,23 @@ router.post('/login', async(req, res) => {
             res.status(404).json({ message: 'No user with that email address!' });
             return;
         }
-
         const validPassword = userData.checkPassword(req.body.password);
 
         if (!validPassword) {
             res.status(404).json({ message: 'Incorrect password!' });
             return;
         }
+
         req.session.save(() => {
             req.session.user_id = userData.id;
             req.session.username = userData.username;
             req.session.loggedIn = true;
-
             res.json({ user_id: userData.id, message: 'You are now logged in!' });
         });
     } catch (err) {
         res.status(500).json(err);
     }
 });
-
 
 // User Logout Route
 router.post('/logout', (req, res) => {
@@ -124,53 +122,78 @@ router.put('/get-reset-link', async(req, res) => {
             res.status(404).json({ message: 'No user with that email!' });
             return;
         }
-        const updateUserEmail = await userData;
 
         // Get Random String for Reset Link
         const randomString = randomstring.generate();
         try {
             const updatedPassword = await User.update({ resetString: randomString }, {
-                where: { email: updateUserEmail.email }
+                where: { email: userData.email }
             });
-            if (updatedPassword) {
-                // Email the link to user
-                //randomString
+            async function sendEmail() {
+                if (updatedPassword) {
+                    // Email the link to user
 
-                res.status(200).json('Check your email for a password reset link.');
-            } else {
-                res.status(500).send('Something went wrong...');
+                    const resetLink = (`${req.protocol}://${req.get('host')}/reset-password/${randomString}`);
+                    let transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: 'help.budget2go@gmail.com',
+                            pass: 'wdlovzyvppnfxfps',
+                        },
+                    });
+
+                    let mailOptions = {
+                        from: 'help.budget2go@gmail.com',
+                        to: userData.email,
+                        subject: "Budget2Go Password Reset",
+                        text: `Hello ${userData.username}, you are receiving this email because you requested a password reset. ` +
+                            `If this was not you, you should still reset your password. Follow the link below:\n\n${resetLink}`
+                    }
+
+                    const sentEmail = await transporter.sendMail(mailOptions);
+                    try {
+                        console.log('Email sent');
+                    } catch (err) {
+                        if (err) {
+                            console.log('Error: ', err);
+                        }
+                    }
+
+
+                    res.status(200).json('Check your email for a password reset link.');
+                } else {
+                    res.status(500).send('Something went wrong...');
+                }
             }
+            // Call the async email reset function
+            sendEmail();
+            res.render('login');
         } catch (err) {
-            //res.status(500).json(`second ${err}`);
-            res.send(`second ${err}`);
+            res.status(500).json(`${err}`);
         }
     } catch (err) {
-        res.send(`second ${err}`);
-        //res.status(500).json(`first ${err}`);
+        res.send(`${err}`);
     }
 });
 
 // Password Reset Route
-router.put('/:password_reset', async(req, res) => {
+router.put('/reset-password/:password_reset', async(req, res) => {
     // get user that needs password reset
     try {
-        const userData = await User.findOne({
-            where: {
-                reset: req.params.password_reset
-            }
-        });
-        if (!userData) {
-            res.status(404).json({ message: 'No user with that reset link!' });
-            return;
-        }
-        const updateUserData = await userData.json();
-
-        // reset the users password
         try {
-            const updatedPassword = await User.update({ password: req.body.password }, { where: { user_id: updateUserData[0].user_id } });
-            if (updatedPassword.ok) {
-                res.redirect('/login');
+            const updatedPassword = await User.update({
+                password: req.body.password,
+                resetString: null,
+            }, {
+                where: {
+                    resetString: req.params.password_reset
+                },
+                individualHooks: true,
+            });
+            if (updatedPassword) {
+                res.render('login');
             }
+
         } catch (err) {
             res.status(500).json(err);
         }
@@ -178,6 +201,4 @@ router.put('/:password_reset', async(req, res) => {
         res.status(500).json(err);
     }
 });
-
-
 module.exports = router;

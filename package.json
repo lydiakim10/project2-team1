@@ -27,6 +27,7 @@
         "express-handlebars": "^6.0.6",
         "express-session": "^1.17.3",
         "mysql2": "^2.1.0",
+        "nodemailer": "^6.8.0",
         "passport": "^0.6.0",
         "randomstring": "^1.2.2",
         "sequelize": "^6.25.0"

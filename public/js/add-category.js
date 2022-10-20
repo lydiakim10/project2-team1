@@ -34,8 +34,8 @@ async function genCategorySelector() {
     categorySelect.innerHTML = '';
     data.forEach(row => {
         let newOption = document.createElement("option");
-        newOption.text = row.category_name;
-        newOption.value = row.category_name;
+        newOption.text.toUpperCase = row.category_name;
+        newOption.value.toUpperCase = row.category_name;
         categorySelect.appendChild(newOption);
     });
 }

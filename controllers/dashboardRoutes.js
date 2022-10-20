@@ -11,7 +11,7 @@ router.get("/", withAuth, async(req, res) => {
                 user_id: req.session.user_id
             },
             order: [
-                ['date', 'ASC']
+                ['date', 'DESC']
             ],
             raw: true
         });
@@ -25,6 +25,12 @@ router.get("/", withAuth, async(req, res) => {
             ],
             raw: true
         });
+
+        //massaging data here 
+        // let newData = await recordData.every((x) => {
+        //     x.merchant = x.merchant.toUpperCase();
+        //     x.type = x.type.toUpperCase();
+        // })
 
         res.render("dashboard", {
             recordData,
