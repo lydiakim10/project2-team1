@@ -7,9 +7,7 @@ User.hasMany(Category, {
     onDelete: 'CASCADE',
     foreignKey: 'user_id'
 });
-Category.belongsTo(User, {
-    onDelete: 'CASCADE',
-});
+Category.belongsTo(User, {});
 // User one to many relationship to Post
 User.hasMany(Record, {
     onDelete: 'CASCADE',
@@ -18,7 +16,6 @@ User.hasMany(Record, {
 
 // Record one to one relationship with User
 Record.belongsTo(User, {
-    onDelete: 'CASCADE',
     foreignKey: 'user_id'
 });
 
@@ -29,9 +26,7 @@ User.hasMany, (Budget, {
 });
 
 Budget.belongsTo(User, {
-    onDelete: 'CASCADE',
     foreign_key: 'user_id'
 });
-
 
 module.exports = { User, Record, Budget };

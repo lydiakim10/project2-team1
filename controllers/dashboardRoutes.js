@@ -6,7 +6,7 @@ const withAuth = require("../utils/auth");
 router.get("/", withAuth, async(req, res) => {
     try {
         const recordData = await Record.findAll({
-            attributes: ["type", "amount", "merchant", "date"],
+            attributes: ["id", "type", "amount", "merchant", "date"],
             where: {
                 user_id: req.session.user_id
             },
@@ -25,12 +25,6 @@ router.get("/", withAuth, async(req, res) => {
             ],
             raw: true
         });
-
-        //massaging data here 
-        // let newData = await recordData.every((x) => {
-        //     x.merchant = x.merchant.toUpperCase();
-        //     x.type = x.type.toUpperCase();
-        // })
 
         res.render("dashboard", {
             recordData,

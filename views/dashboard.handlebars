@@ -109,31 +109,24 @@
                 {{#each categoryData}}
                 <option value="{{this.category_name}}">{{this.category_name}}</option>
                 {{/each}}
-                {{!-- <option value="Select">--- Select ----</option>
-                <option value="Food">Food</option>
-                <option value="Rent">Rent</option>
-                <option value="Utilities">Utilities</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Transportation">Transportation</option>
-                <option value="Other">Other</option> --}}
               </select>
             </div>
 
               <div class="col">
               <label for="merchant" class="form-sections">Merchant:</label>
-                <input type="text" class="form-control" id="merchant"/>
+                <input type="text" class="form-control" id="merchant" required/>
             </div>
         
             <div class="col">              
               <div class="date-picker">
                 <label for="date" class="form-sections">Date: </label>
-                <input type="date" min="1" class="form-control" id="date" autocomplete="off">
+                <input type="date" min="1" class="form-control" id="date" autocomplete="off" required>
               </div>
             </div>
               
             <div class="col">
               <label for="amount" class="form-sections">Amount:</label>
-                <input type="text" class="form-control" id="amount"/>
+                <input type="text" class="form-control" id="amount" required/>
             </div>
           </div>
         </div>
@@ -149,7 +142,7 @@
   <ul id='records'>
   {{#each recordData}}
   <div class="card-body recordcard">
-   <li>{{this.date}} &nbsp;&nbsp;&nbsp;&nbsp;  Category: {{this.type}}  &nbsp;&nbsp;&nbsp;&nbsp;  Merchant: {{this.merchant}}  &nbsp;&nbsp;&nbsp;&nbsp;  Amount: ${{this.amount}} </li>  
+   <li>{{this.date}} &nbsp;&nbsp;&nbsp;&nbsp;  Category: {{this.type}}  &nbsp;&nbsp;&nbsp;&nbsp;  Merchant: {{this.merchant}}  &nbsp;&nbsp;&nbsp;&nbsp;  Amount: ${{this.amount}}  <button data-id="{{this.id}}" class="deleteRecord">Delete</button> </li>  
   </div>  
   {{/each}}
   </ul>
@@ -160,5 +153,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
 <script src="/js/add-record.js"></script>
 <script src="/js/delete-record.js"></script>
-<script src="/js/add-budget.js"></script>
+{{!-- <script src="/js/add-budget.js"></script> --}}
 <script src="/js/add-category.js"></script>
