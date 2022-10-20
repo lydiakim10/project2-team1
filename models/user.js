@@ -25,7 +25,8 @@ User.init({
             allowNull: false,
             unique: true,
             validate: {
-                isEmail: true
+                isEmail: true,
+                msg: 'Please enter an email.'
             }
         },
         password: {
@@ -50,10 +51,12 @@ User.init({
                 newUserData.password = await bcrypt.hash(newUserData.password, 10);
                 return newUserData;
             },
-            beforeUpdate: async(updatedUserData) => {
+            beforeSave: async(updatedUserData) => {
+
                 updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
                 return updatedUserData;
             },
+
         },
         sequelize,
         paranoid: true,
