@@ -56,4 +56,3 @@ const recordDate = document.querySelector('#date');
 
 
 document.querySelector('#createRecord').addEventListener('click', addRecord);
-// categorySelect.addEventListener('click', getCategories);
