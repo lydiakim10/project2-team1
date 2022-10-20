@@ -69,6 +69,7 @@
 {{!-- Place for User to input a custom Category field --}}
 <section>
   <h3>Category</h3>
+  <br>
       <form id="category-form">
         <div class="container text-center">
           <div class="row">
@@ -93,6 +94,7 @@
 <!-- Place for User to input their Expenses throughout the month (add a record) -->
 <section>
   <h3>Expense</h3>
+  <br>
       <form id="form">
         <div class="container text-center">
           <div class="row">
@@ -136,12 +138,15 @@
       </form>
     </div>
 </section>
-
+<br>
+<br>
 {{!-- Show all users records --}}
 <section>
   <ul id='records'>
   {{#each recordData}}
-  <li>{{this.type}} {{this.amount}} {{this.merchant}} {{this.date}}</li>  
+  <div class="card-body recordcard">
+   <li>{{this.date}} &nbsp;&nbsp;&nbsp;&nbsp;  Category: {{this.type}}  &nbsp;&nbsp;&nbsp;&nbsp;  Merchant: {{this.merchant}}  &nbsp;&nbsp;&nbsp;&nbsp;  Amount: ${{this.amount}} </li>  
+  </div>  
   {{/each}}
   </ul>
 </section>
