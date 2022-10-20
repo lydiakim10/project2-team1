@@ -44,6 +44,28 @@
         margin-left: 32%;
 }
 
+.recordcard {
+    text-align: center;
+    list-style-type: none;
+}
+
+.card-body {
+    background-color: lightgrey;
+    margin-left: 8%;
+    margin-bottom: 5px;
+    width: 80%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+}
+
+.addexpenseBtn {
+    margin-left: 45%;
+    background-color: lightblue;
+    border: none;
+    color: black;
+}
+
 @media screen and (max-device-width: 768px) {
     .login-form {
         font-size: 10px;

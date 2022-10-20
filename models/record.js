@@ -27,7 +27,7 @@ Record.init({
         }
     },
     date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
         validate: {
             isDate: true,
@@ -42,6 +42,13 @@ Record.init({
         allowNull: false
     }
 }, {
+    hooks: {
+        beforeCreate: async(recordData) => {
+
+            recordData = await recordData.merchant.toUpperCase();
+            return recordData
+        },
+    },
     sequelize,
     paranoid: true,
     timestamps: false,
