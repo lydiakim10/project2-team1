@@ -3,24 +3,16 @@ const { Record } = require('../../models');
 const withAuth = require('../../utils/auth');
 const sequelize = require('../../config/connection');
 
-
 // USE package for dates
-const moment = require('moment')
+const moment = require('moment');
 
 // GET all records
-router.get('/', withAuth, async(req, res) => {
+router.get('/', async(req, res) => {
     try {
         const data = await Record.findAll({
             where: {
-                user_id: req.body.user_id
+                user_id: req.query.user_id
             },
-            attributes: [
-                'id',
-                'user_id',
-                'type',
-                'amount',
-                'merchant',
-            ],
         });
         res.status(200).json(data);
     } catch (err) {
@@ -29,11 +21,12 @@ router.get('/', withAuth, async(req, res) => {
 });
 
 // GET a single record by id 
-router.get('/:id', withAuth, async(req, res) => {
+router.get('/:record_id', withAuth, async(req, res) => {
     try {
         const data = await Record.findOne({
             where: {
-                id: req.params.id
+                user_id: req.body.user_id,
+                id: req.params.record_id
             },
             attributes: [
                 'id',
@@ -50,7 +43,7 @@ router.get('/:id', withAuth, async(req, res) => {
 });
 
 // CREATE a new record
-router.post('/', withAuth, async(req, res) => {
+router.post('/', async(req, res) => {
 
     try {
         const data = await Record.create({
@@ -68,7 +61,7 @@ router.post('/', withAuth, async(req, res) => {
 });
 
 // UPDATE a record
-router.put('/:id', withAuth, async(req, res) => {
+router.put('/:record_id', withAuth, async(req, res) => {
     try {
         const data = await Record.update({
             type: req.body.type,
@@ -77,7 +70,7 @@ router.put('/:id', withAuth, async(req, res) => {
             merchant: req.body.merchant,
         }, {
             where: {
-                id: req.params.id
+                id: req.params.record_id
             }
         })
         if (!data) {
@@ -92,11 +85,12 @@ router.put('/:id', withAuth, async(req, res) => {
 });
 
 // DELETE A record 
-router.delete('/:id', withAuth, async(req, res) => {
+router.delete('/:record_id', withAuth, async(req, res) => {
     try {
         const data = await Record.destroy({
             where: {
-                id: req.params.id
+                user_id: req.body.user_id,
+                id: req.params.record_id
             }
         })
         if (!data) {

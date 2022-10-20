@@ -1,19 +1,34 @@
 const router = require("express").Router();
-const { Record, User, Category } = require("../models");
+const { Record, User } = require("../models");
+const Category = require('../models/category');
 const withAuth = require("../utils/auth");
 
-router.get("/", withAuth, async (req, res) => {
+router.get("/", withAuth, async(req, res) => {
     try {
         const recordData = await Record.findAll({
             attributes: ["type", "amount", "merchant", "date"],
             where: {
-                    user_id: req.session.user_id
-                },
+                user_id: req.session.user_id
+            },
+            order: [
+                ['date', 'ASC']
+            ],
+            raw: true
         });
-        const record = recordData.map((record) => record.get({ plain: true }));
+        const categoryData = await Category.findAll({
+            attributes: ["category_name", "budget"],
+            where: {
+                user_id: req.session.user_id
+            },
+            order: [
+                ['category_name', 'ASC']
+            ],
+            raw: true
+        });
 
         res.render("dashboard", {
-            record,
+            recordData,
+            categoryData,
             loggedIn: req.session.loggedIn
         });
     } catch (err) {
@@ -22,7 +37,7 @@ router.get("/", withAuth, async (req, res) => {
     }
 });
 
-router.get("/record/:id", async (req, res) => {
+router.get("/record/:record_id", async(req, res) => {
     try {
         const recordData = await Record.findbyPk(req.params.id, {
             attributes: ["type", "amount", "merchant", "date"],

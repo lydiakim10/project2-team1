@@ -1,12 +1,19 @@
 const router = require('express').Router();
-const { Category } = require('../../models');
+const Category = require('../../models/category');
 const withAuth = require('../../utils/auth');
 const sequelize = require('../../config/connection');
 
 // GET all Categories
-router.get('/', withAuth, async(req, res) => {
+router.get('/', async(req, res) => {
     try {
-        const data = await Category.findAll({});
+        const data = await Category.findAll({
+            where: {
+                user_id: req.query.user_id
+            },
+            order: [
+                ['category_name', req.query.order_by]
+            ]
+        });
         res.status(200).json(data);
     } catch (err) {
         res.status(500).json(err);
@@ -18,6 +25,7 @@ router.get('/:id', withAuth, async(req, res) => {
     try {
         const data = await Category.findOne({
             where: {
+                user_id: req.body.user_id,
                 id: req.params.id
             },
         });
@@ -31,8 +39,9 @@ router.get('/:id', withAuth, async(req, res) => {
 router.post('/', withAuth, async(req, res) => {
     try {
         const data = await Category.create({
-            name: req.body.name,
-            budget: req.body.budget
+            category_name: req.body.category_name,
+            budget: req.body.budget,
+            user_id: req.body.user_id
         })
         res.status(200).json(data)
     } catch (err) {
@@ -46,11 +55,12 @@ router.put('/:id', withAuth, async(req, res) => {
     try {
         const data = await Category.update({
             id: req.body.id,
-            name: req.body.name,
+            category_name: req.body.name,
             budget: req.body.budget
         }, {
             where: {
-                id: req.params.id
+                id: req.params.id,
+                user_id: req.body.user_id
             }
         })
         if (!data) {
