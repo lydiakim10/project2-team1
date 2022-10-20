@@ -5,70 +5,7 @@
     {{#each categoryData}}
     <div id="budget-balance">{{this.category_name}} : {{this.budget}}</div>
     {{/each}}
-    {{!-- <div class="main-date" id="date-display"></div> --}}
-        
-    <!-- Budget -->
-    {{!-- <div class="row justify-content-center">
-      <div class="col-4">
-        <div>
-          <h4>Budget</h4>
-          <p id="money-plus" class="money plus">+$0.00</p>
-        </div>
-      </div>
-
-      {{#each recordTotals}}
-      {{this}}
-      {{/each}}
-
-      <!-- Expense -->
-      <div class="col-4">
-        <div>
-          <h4>Expense</h4>
-          <p id="money-minus" class="money minus">-$0.00</p>
-        </div>
-      </div>
-    </div>
-  </div> --}}
 </section>
-
-  <!-- Place for User to input their Budgets -->
-{{!-- <section>
-  <h3>Budget</h3>
-  <form id="form">
-    <div class="container text-center">
-      <div class="row">
-        <div class="col-4">
-          <label for="month" class="form-sections">Month:</label>
-          <div class="category-input">
-            <select id="category-expense" class="form-control" id="datemonth" autocomplete="off">
-              <option value="Select">--- Month ---</option>
-              <option value="January">January</option>
-              <option value="February">February</option>
-              <option value="March">March</option>
-              <option value="April">April</option>
-              <option value="May">May</option>
-              <option value="June">June</option>
-              <option value="July">July</option>
-              <option value="August">August</option>
-              <option value="September">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-4">
-          <label for="amount" class="form-sections">Amount:</label>
-          <div class="amt-input">
-            <input type="text" class="form-control" id="amount-input"/>
-          </div>
-          </div>
-      </div>
-    </div>
-    <button type="button" class="btn btn-outline-secondary addbudgetBtn">Add Budget</button>
-  </form>
-</section> --}}
 
 {{!-- Place for User to input a custom Category field --}}
 <section>
@@ -153,5 +90,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
 <script src="/js/add-record.js"></script>
 <script src="/js/delete-record.js"></script>
-{{!-- <script src="/js/add-budget.js"></script> --}}
 <script src="/js/add-category.js"></script>
