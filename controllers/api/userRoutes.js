@@ -140,7 +140,7 @@ router.put('/get-reset-link', async(req, res) => {
                         service: 'gmail',
                         auth: {
                             user: 'help.budget2go@gmail.com',
-                            pass: 'wdlovzyvppnfxfps',
+                            pass: 'itbpfqxaamnridbc',
                         },
                     });
 
