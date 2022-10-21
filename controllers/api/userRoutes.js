@@ -70,7 +70,6 @@ router.post('/', async(req, res) => {
 // User Login Route
 
 router.post('/login', async(req, res) => {
-    console.log("\n\nHello0\n\n");
     try {
         const userData = await User.findOne({
             where: {
@@ -141,7 +140,7 @@ router.put('/get-reset-link', async(req, res) => {
                         service: 'gmail',
                         auth: {
                             user: 'help.budget2go@gmail.com',
-                            pass: 'wdlovzyvppnfxfps',
+                            pass: 'itbpfqxaamnridbc',
                         },
                     });
 
